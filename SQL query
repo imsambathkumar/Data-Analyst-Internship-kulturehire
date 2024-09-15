@@ -1,0 +1,233 @@
+1. What is the gender distribution of respondents from India?
+To get the gender distribution of respondents from India:
+
+SELECT 
+    Gender, 
+    COUNT(*) AS Total_Respondents
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    Gender;
+----------------------------------------------------------------------------------------------------------	
+2. What percentage of respondents from India are interested in education abroad and sponsorship?
+To calculate the percentage of respondents interested in education abroad and needing sponsorship:
+SELECT 
+    (COUNT(CASE WHEN Higher_education_outside_india = 'Yes' AND Need_sponsorship = 'Yes' THEN 1 END) * 100.0 / COUNT(*)) AS Percentage_Interested
+FROM 
+    survey
+WHERE 
+    Country = 'India';
+------------------------------------------------------------------------------------------------------------
+3. What are the 6 top influences on career aspirations for respondents in India?
+To find the top 6 influences on career aspirations:
+SELECT 
+    Influencing_factors, 
+    COUNT(*) AS Influence_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    Influencing_factors
+ORDER BY 
+    Influence_Count DESC
+LIMIT 6;
+------------------------------------------------------------------------------------------------------------
+4. How do career aspiration influences vary by gender in India?
+To analyze how career aspirations vary by gender:
+SELECT 
+    Gender, 
+    Influencing_factors, 
+    COUNT(*) AS Influence_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    Gender, Influencing_factors
+ORDER BY 
+    Gender, Influence_Count DESC;
+------------------------------------------------------------------------------------------------------------
+5. What percentage of respondents are willing to work for a company for at least 3 years?
+To calculate the percentage of respondents willing to work for at least 3 years:
+SELECT 
+    (COUNT(CASE WHEN Employer_for_3_years = 'Yes' THEN 1 END) * 100.0 / COUNT(*)) AS Percentage_Willing
+FROM 
+    survey
+WHERE 
+    Country = 'India';
+------------------------------------------------------------------------------------------------------------
+6. How many respondents prefer to work for socially impactful companies?
+To find the number of respondents who prefer to work for socially impactful companies:
+SELECT 
+    COUNT(*) AS Respondents_Social_Impact
+FROM 
+    survey
+WHERE 
+    Country = 'India' 
+    AND Without_social_impact = 'No';
+------------------------------------------------------------------------------------------------------------
+7. How does the preference for socially impactful companies vary by gender?
+To see how the preference for socially impactful companies varies by gender:
+SELECT 
+    Gender, 
+    COUNT(*) AS Respondents_Social_Impact
+FROM 
+    survey
+WHERE 
+    Country = 'India' 
+    AND Without_social_impact = 'No'
+GROUP BY 
+    Gender;
+------------------------------------------------------------------------------------------------------------
+8. What is the distribution of minimum expected salary in the first three years among respondents?
+To get the distribution of minimum expected salary in the first three years:
+SELECT 
+    salary_3_years, 
+    COUNT(*) AS Respondents_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    salary_3_years
+ORDER BY 
+    salary_3_years;
+------------------------------------------------------------------------------------------------------------
+9. What is the expected minimum monthly salary in hand?
+To find the average expected minimum monthly salary:
+SELECT 
+    AVG(starting_salary) AS Average_Minimum_Monthly_Salary
+FROM 
+    survey
+WHERE 
+    Country = 'India';
+------------------------------------------------------------------------------------------------------------
+10. What percentage of respondents prefer remote working?
+To find the percentage of respondents who prefer remote working:
+SELECT 
+    (COUNT(CASE WHEN no_remote_policy = 'No' THEN 1 END) * 100.0 / COUNT(*)) AS Percentage_Prefer_Remote
+FROM 
+    survey
+WHERE 
+    Country = 'India';
+	
+------------------------------------------------------------------------------------------------------------
+11. What is the preferred number of daily work hours?
+To get the preferred number of daily work hours:
+SELECT 
+    work_hours, 
+    COUNT(*) AS Respondents_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    work_hours
+ORDER BY 
+    Respondents_Count DESC;
+------------------------------------------------------------------------------------------------------------
+12. What are the common work frustrations among respondents?
+To find common work frustrations:
+SELECT 
+    frustration_factors, 
+    COUNT(*) AS Frustration_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    frustration_factors
+ORDER BY 
+    Frustration_Count DESC;
+------------------------------------------------------------------------------------------------------------
+13. How does the need for work-life balance interventions vary by gender?
+To analyze the need for work-life balance interventions by gender:
+SELECT 
+    Gender, 
+    COUNT(*) AS Work_Life_Balance_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India' 
+    AND Influencing_factors LIKE '%work-life balance%'
+GROUP BY 
+    Gender;
+------------------------------------------------------------------------------------------------------------
+14. How many respondents are willing to work under an abusive manager?
+To find the number of respondents willing to work under an abusive manager:
+SELECT 
+    COUNT(*) AS Respondents_Under_Abusive_Manager
+FROM 
+    survey
+WHERE 
+    Country = 'India' 
+    AND abusive_manager = 'Yes';
+------------------------------------------------------------------------------------------------------------
+15. What is the distribution of minimum expected salary after five years?
+To get the distribution of minimum expected salary after five years:
+SELECT 
+    salary_5_years, 
+    COUNT(*) AS Respondents_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    salary_5_years
+ORDER BY 
+    salary_5_years;
+------------------------------------------------------------------------------------------------------------
+16. What are the remote working preferences by gender?
+To find remote working preferences by gender:
+SELECT 
+    Gender, 
+    COUNT(CASE WHEN no_remote_policy = 'No' THEN 1 END) AS Prefers_Remote_Working,
+    COUNT(CASE WHEN no_remote_policy = 'Yes' THEN 1 END) AS Prefers_Onsite_Working
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    Gender;
+------------------------------------------------------------------------------------------------------------
+17. What are the top work frustrations for each gender?
+To find the top work frustrations for each gender:
+SELECT 
+    Gender, 
+    frustration_factors, 
+    COUNT(*) AS Frustration_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    Gender, frustration_factors
+ORDER BY 
+    Gender, Frustration_Count DESC;
+------------------------------------------------------------------------------------------------------------
+18. What factors boost work happiness and productivity for respondents?
+To find factors that boost work happiness and productivity:
+SELECT 
+    happiness_factors, 
+    COUNT(*) AS Happiness_Factor_Count
+FROM 
+    survey
+WHERE 
+    Country = 'India'
+GROUP BY 
+    happiness_factors
+ORDER BY 
+    Happiness_Factor_Count DESC;
+------------------------------------------------------------------------------------------------------------
+19. What percentage of respondents need sponsorship for education abroad?
+To calculate the percentage of respondents who need sponsorship for education abroad:
+SELECT 
+    (COUNT(CASE WHEN Need_sponsorship = 'Yes' THEN 1 END) * 100.0 / COUNT(*)) AS Percentage_Need_Sponsorship
+FROM 
+    survey
+WHERE 
+    Country = 'India';
+------------------------------------------------------------------------------------------------------------
